@@ -74,14 +74,14 @@ function addDays(date, days) {
 }
 
 
-function updateTokenPhone(usrName, phNum) {
+function updateToken(usrName, changeValue, type) {
     if(DEBUG) console.log('token.updateTokenPhone()');
     fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
         if(error) throw error; 
         let tokens = JSON.parse(data); 
         tokens.forEach(obj => {
             if(obj.username === usrName) {
-                obj.phone = phNum; 
+                obj[type] = changeValue; 
             }
         }); 
         let selectedToken = tokens.find(obj => {
@@ -102,10 +102,6 @@ function updateTokenPhone(usrName, phNum) {
 }; 
 
 
-function updateTokenEmail() {
-    if(DEBUG) console.log('token.updateTokenEmail()');
-
-}
 
 function tokenApp() {
   if(DEBUG) console.log('tokenApp()');
@@ -131,19 +127,19 @@ function tokenApp() {
     if(DEBUG) console.log('--upd');
     if (myArgs[2] === 'p'){
         if (myArgs.length < 4) {
-            console.log('invalid syntax. node myapp token --upd p [username] [phone]')
+            console.log('Error: please use the following syntax: \nnode myapp token --upd p [username] [phone]')
         } else {
             if(DEBUG) console.log('--upd p'); 
-            updateTokenPhone(myArgs[3], myArgs[4]); 
+            updateToken(myArgs[3], myArgs[4], 'phone'); 
         }
         break;
     }
     if (myArgs[2] === 'e'){
         if (myArgs.length < 4) {
-            console.log('invalid syntax. node myapp token --upd e [username] [email]')
+            console.log('Error: please use the following syntax: \nnode myapp token --upd e [username] [email]')
         } else {
             if(DEBUG) console.log('--upd e'); 
-            updateTokenEmail(myArgs[4]); 
+            updateToken(myArgs[3], myArgs[4], 'email'); 
         }
         break;
 
