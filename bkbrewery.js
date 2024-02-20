@@ -8,7 +8,7 @@ const { configApp } = require('./config.js');
 
 const myArgs = process.argv.slice(2);
 
-if(DEBUG) if(myArgs.length >= 1) console.log('the myapp.args: ', myArgs);
+if(DEBUG) if(myArgs.length >= 1) console.log('the bkbrewery.args: ', myArgs);
 
 switch (myArgs[0]) {
   case 'init':

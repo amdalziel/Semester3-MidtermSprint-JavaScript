@@ -54,7 +54,8 @@ function setConfig() {
             }
         }
         if(!match) {
-            console.log(`invalid key: ${myArgs[2]}, try another.`)
+            console.log(`Error: ${myArgs[2]} is an invalid key.`)
+            return; 
        }
         if(DEBUG) console.log(cfg);
         data = JSON.stringify(cfg, null, 2);

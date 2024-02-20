@@ -1,6 +1,6 @@
 Config Usage: 
 
-myapp config --help                     displays help for the config command
-myapp config --show                     displays a list of the current config settings 
-myapp config --reset                    resets the config file with default settings 
-myapp config --set                      sets a specific config setting 
+bkbrewery config --help                     displays help for the config command
+bkbrewery config --show                     displays a list of the current config settings 
+bkbrewery config --reset                    resets the config file with default settings 
+bkbrewery config --set <key> <value>        sets a specific config setting 
