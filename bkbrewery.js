@@ -4,7 +4,7 @@ const fs = require("fs");
 
 // const { initializeApp } = require('./init.js');
 const { configApp } = require('./config.js');
-// const { tokenApp } = require('./token.js');
+const { tokenApp } = require('./token.js');
 
 const myArgs = process.argv.slice(2);
 
