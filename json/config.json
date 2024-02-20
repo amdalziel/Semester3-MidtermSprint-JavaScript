@@ -1,0 +1,8 @@
+{
+  "name": "mya-cat",
+  "version": "1.0.0",
+  "description": "The Command Line Interface (CLI) for the Semester 3 MidTerm Sprint.",
+  "main": "index.js",
+  "superuser": "admin01",
+  "database": "exampleDatabase"
+}
