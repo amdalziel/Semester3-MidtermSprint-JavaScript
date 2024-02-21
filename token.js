@@ -151,7 +151,7 @@ function tokenApp() {
       break;
     case '--upd':
     if(DEBUG) console.log('--upd');
-    if(myArgs[2] != 'p' || myArgs[2] != 'e') {
+    if(myArgs[2] != 'p' && myArgs[2] != 'e') {
         console.log('Error: please enter a valid command.')
         return; 
     }
