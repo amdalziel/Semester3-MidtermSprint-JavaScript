@@ -75,7 +75,7 @@ function addDays(date, days) {
 
 
 function updateToken(usrName, changeValue, type) {
-    if(DEBUG) console.log('token.updateTokenPhone()');
+    if(DEBUG) console.log('token.updateToken()');
     fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
         if(error) throw error; 
         let tokens = JSON.parse(data); 
@@ -103,6 +103,32 @@ function updateToken(usrName, changeValue, type) {
 
 
 
+function searchToken(value, type) {
+if(DEBUG) console.log('token.searchToken()'); 
+
+fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
+    if(error) throw error; 
+    let tokens = JSON.parse(data);
+   
+    let selectToken= null;   
+    tokens.forEach(token => {
+        if (token[type] === value) {
+            if(DEBUG) {console.log(token)}; 
+            selectToken = token.token; 
+        }
+    })
+
+    if(selectToken == null) {
+        console.log("Error: token username not found."); 
+    } else {
+        console.log(`** User Token ** \n${selectToken}`); 
+    }
+    
+});
+}
+
+
+
 function tokenApp() {
   if(DEBUG) console.log('tokenApp()');
 
@@ -117,7 +143,7 @@ function tokenApp() {
       break;
     case '--new':
       if (myArgs.length < 3) {
-          console.log('invalid syntax. node myapp token --new [username]')
+          console.log('invalid syntax. node bkbrewery token --new [username]')
       } else {
         if(DEBUG) console.log('--new');
         newToken(myArgs[2]);
@@ -125,27 +151,61 @@ function tokenApp() {
       break;
     case '--upd':
     if(DEBUG) console.log('--upd');
+    if(myArgs[2] != 'p' || myArgs[2] != 'e') {
+        console.log('Error: please enter a valid command.')
+        return; 
+    }
     if (myArgs[2] === 'p'){
-        if (myArgs.length < 4) {
-            console.log('Error: please use the following syntax: \nnode myapp token --upd p [username] [phone]')
+        if (myArgs.length < 5) {
+            console.log('Error: please use the following syntax: \nnode bkbrewery token --upd p [username] [phone]')
         } else {
             if(DEBUG) console.log('--upd p'); 
             updateToken(myArgs[3], myArgs[4], 'phone'); 
         }
         break;
-    }
-    if (myArgs[2] === 'e'){
-        if (myArgs.length < 4) {
-            console.log('Error: please use the following syntax: \nnode myapp token --upd e [username] [email]')
+    } else {
+        if (myArgs.length < 5) {
+            console.log('Error: please use the following syntax: \nnode bkbrewery token --upd e [username] [email]')
         } else {
             if(DEBUG) console.log('--upd e'); 
             updateToken(myArgs[3], myArgs[4], 'email'); 
         }
         break;
-
     }
-
-       
+    case '--search':
+        if(DEBUG) console.log('--search');
+        if(myArgs[2] != 'u' && myArgs[2] != 'e' && myArgs[2] != 'p') {
+            console.log('Error: please enter a valid command.')
+            return; 
+        }
+        if(myArgs[2] === 'u'){
+            if (myArgs.length < 4) {
+                console.log('Error: please use the following syntax: \nnode bkbrewery token --search u [username]')
+            } else {
+                if(DEBUG) console.log('--search u'); 
+                searchToken(myArgs[3], 'username'); 
+            }
+            break;
+        } 
+        if(myArgs[2] === 'e') {
+            if (myArgs.length < 4) {
+                console.log('Error: please use the following syntax: \nnode bkbrewery token --search e [email]')
+            } else {
+                if(DEBUG) console.log('--search e'); 
+                searchToken(myArgs[3], 'email'); 
+            }
+            break;
+        }
+        else {
+            if (myArgs.length < 4) {
+                console.log('Error: please use the following syntax: \nnode bkbrewery token --search p [phone]')
+            } else {
+                if(DEBUG) console.log('--search p'); 
+                searchToken(myArgs[3], 'phone'); 
+            }
+            break;
+        }
+    
   case '--help':
   case '--h':
   default:
