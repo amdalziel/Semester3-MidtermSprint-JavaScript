@@ -217,5 +217,5 @@ function tokenApp() {
 }
 
 module.exports = {
-  tokenApp,
+  tokenApp, 
 }
