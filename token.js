@@ -38,12 +38,12 @@ function newToken(username) {
       "email": "user@email.com",
       "phone": "2223334444",
       "token": "token",
-      "expires": "2000-01-03 12:30:00",
+      "expires": "2000-01-04 12:30:00",
       "confirmed": "tbd"
   }`);
 
   let now = new Date();
-  let expires = addDays(now, 2);
+  let expires = addDays(now, 3);
 
   newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
   newToken.username = username;
@@ -110,18 +110,18 @@ fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
     if(error) throw error; 
     let tokens = JSON.parse(data);
    
-    let selectToken= null;   
+    let selectTokens = [];   
     tokens.forEach(token => {
         if (token[type] === value) {
             if(DEBUG) {console.log(token)}; 
-            selectToken = token.token; 
+            selectTokens.push(`\n${token.token}`); 
         }
     })
 
-    if(selectToken == null) {
-        console.log("Error: token username not found."); 
+    if(selectTokens.length === 0) {
+        console.log(`Error: token with that ${type} not found.`); 
     } else {
-        console.log(`** User Token ** \n${selectToken}`); 
+        console.log(`** User Token ** \n${selectTokens}`); 
     }
     
 });

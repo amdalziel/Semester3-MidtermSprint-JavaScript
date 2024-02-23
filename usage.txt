@@ -4,6 +4,8 @@ Usage:
 
 bkbrewery --help                            displays all help
 
+bkbrewery --status                          displays a status for the init and config 
+
 bkbrewery init --help                       displays help for the init command
 bkbrewery init --all                        creates the folder structure and the config and help files
 bkbrewery init --mk                         creates the folder structure
