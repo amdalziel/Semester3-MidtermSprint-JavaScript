@@ -1,8 +1,16 @@
 const path = require('path'); 
 const fs = require('fs'); 
 
+const crc32 = require('crc/crc32');
+
+
 const express = require('express'); 
+const bodyParser = require('body-parser'); 
 const app = express(); 
+
+// Body Parser Middleware 
+var jsonParser = bodyParser.json(); 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const port = 3000; 
 
@@ -17,32 +25,72 @@ app.set('views', path.join(__dirname, 'public', 'views'));
 app.use(express.static('public'));
 app.use(express.json());
 
-app.post('/api/storeToken', (req, res) => {
-    const newTokenData = req.body; 
-    console.log(newTokenData); 
-    
-    res.json({ success: true });
+app.get("/", (req, res) => {
+    console.log("Route: root"); 
+    // console.log(req.query); 
+    res.render('home.ejs'); 
+})
 
-    fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
-        if(error) throw error; 
+
+// Route for saving tokens from browser 
+
+
+app.post('/api/storeToken', urlencodedParser, (req, res) => {
+    const newTokenData = req.body; 
+    if(DEBUG) console.log(newTokenData); 
+
+    let newToken = JSON.parse(`{
+        "created": "2000-01-01 12:30:00",
+        "username": "username",
+        "email": "user@email.com",
+        "phone": "2223334444",
+        "token": "token",
+        "expires": "2000-01-04 12:30:00",
+        "confirmed": "tbd"
+    }`);
+  
+    let now = new Date();
+    let expires = addDays(now, 3);
+  
+    newToken.created = now; // change format
+    newToken.username = newTokenData.username;
+    newToken.email = newTokenData.email; 
+    newToken.phone = newTokenData.phone; 
+    newToken.token = crc32(newTokenData.username).toString(16);
+    newToken.expires = expires; //change format 
+  
+    if(DEBUG) console.log(newToken); 
+
+    function addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+      }
+
+      fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
+        if(error) {
+            res.render('failMess.ejs'); 
+            throw error; }
         let tokens = JSON.parse(data);
-        tokens.push(newTokenData);
+        tokens.push(newToken);
         userTokens = JSON.stringify(tokens);
     
         fs.writeFile(__dirname + '/json/tokens.json', userTokens, (err) => {
-            if (err) console.log(err);
+            if (err) {
+                res.render('failMess.ejs'); 
+                console.log(err);}
             else { 
-                console.log(`New token ${newTokenData.token} was created for ${newTokenData.username}.`);
+                console.log(`New token ${newToken.token} was created for ${newToken.username}.`);
+                res.render('successMess.ejs', {tok: newToken.token});
             }
-        });
+        })
+        
+    });
+       
 });
 
-}); 
 
-app.get("/", (req, res) => {
-    console.log("Route: root"); 
-    res.render('home.ejs'); 
-})
+
 
 app.use((request, response) => {
     response.status(404).write('404: Content not found'); 

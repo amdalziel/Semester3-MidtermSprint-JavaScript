@@ -64,14 +64,18 @@ function newToken(username) {
       })
       
   });
-  return newToken.token;
+  console.log(newToken);
+  return newToken;
 }
+
 
 function addDays(date, days) {
   var result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
 }
+
+
 
 
 function updateToken(usrName, changeValue, type) {
@@ -218,4 +222,6 @@ function tokenApp() {
 
 module.exports = {
   tokenApp, 
+  newToken, 
+  updateToken, 
 }

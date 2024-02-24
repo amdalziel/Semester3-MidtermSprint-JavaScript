@@ -20,7 +20,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
         newWebToken(userValue, emailValue, phoneValue); 
         clearFields(userName, email, phone); 
-        userMessage(); 
    
     }); 
 
@@ -62,8 +61,10 @@ window.addEventListener("DOMContentLoaded", function () {
                 }
                 const result = await response.json();
                 console.log('Token stored successfully:', result);
+            
             } catch (error) {
                 console.error('Error storing token:', error);
+       
             } 
 
             return newToken;
@@ -83,13 +84,9 @@ window.addEventListener("DOMContentLoaded", function () {
         fieldsArray.forEach(field => {
             field.value = ""; 
         })
-
       }
+
+
     
     }); 
 
-
-         // fetch('../json/tokens.json')
-        // .then(response => response.json())
-        // .then(data => console.log(data))
-        // .catch(error => console.error('Error fetching JSON:', error));
