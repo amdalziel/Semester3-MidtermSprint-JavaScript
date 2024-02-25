@@ -9,6 +9,8 @@ const express = require('express');
 const bodyParser = require('body-parser'); 
 const app = express(); 
 
+const { newWebToken } = require('./token');
+
 // Body Parser Middleware 
 var jsonParser = bodyParser.json(); 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -37,37 +39,10 @@ app.post('/api/storeToken', urlencodedParser, (req, res) => {
     const newTokenData = req.body; 
     if(DEBUG) console.log(newTokenData); 
 
-    let newToken = JSON.parse(`{
-        "created": "2000-01-01 12:30:00",
-        "username": "username",
-        "email": "user@email.com",
-        "phone": "2223334444",
-        "token": "token",
-        "expires": "2000-01-04 12:30:00",
-        "confirmed": "tbd"
-    }`);
-  
-    let now = new Date();
-    let expires = addDays(now, 3);
+    let newToken = newWebToken(newTokenData.username, newTokenData.email, newTokenData.phone); 
 
-    let formatPhone = newTokenData.phone.replace(/-/g, "");
-  
-    newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
-    newToken.username = newTokenData.username;
-    newToken.email = newTokenData.email; 
-    newToken.phone = formatPhone; 
-    newToken.token = crc32(newTokenData.username).toString(16);
-    newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
-  
-    if(DEBUG) console.log(newToken); 
 
-    function addDays(date, days) {
-        var result = new Date(date);
-        result.setDate(result.getDate() + days);
-        return result;
-      }
-
-      fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
+    fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
         if(error) {
             res.render('failMess.ejs'); 
             throw error; }
@@ -84,8 +59,7 @@ app.post('/api/storeToken', urlencodedParser, (req, res) => {
                 res.render('successMess.ejs', {tok: newToken.token});
             }
         })
-        
-    });
+    }); 
        
 });
 

@@ -68,6 +68,35 @@ function newToken(username) {
   return newToken;
 }
 
+function newWebToken(user, email, phone) {
+
+    let newToken = JSON.parse(`{
+        "created": "2000-01-01 12:30:00",
+        "username": "username",
+        "email": "user@email.com",
+        "phone": "2223334444",
+        "token": "token",
+        "expires": "2000-01-04 12:30:00",
+        "confirmed": "tbd"
+    }`);
+  
+    let now = new Date();
+    let expires = addDays(now, 3);
+
+    let formatPhone = phone.replace(/-/g, "");
+  
+    newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
+    newToken.username = user;
+    newToken.email = email; 
+    newToken.phone = formatPhone; 
+    newToken.token = crc32(user).toString(16);
+    newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
+  
+    if(DEBUG) console.log(newToken); 
+    return newToken; 
+
+}
+
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -222,6 +251,5 @@ function tokenApp() {
 
 module.exports = {
   tokenApp, 
-  newToken, 
-  updateToken, 
+  newWebToken, 
 }
