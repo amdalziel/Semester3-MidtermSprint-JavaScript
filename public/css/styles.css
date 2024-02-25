@@ -10,11 +10,28 @@
 h1 {
     padding-left: 5%; 
     padding-top: 3%;
-    padding-bottom: 3%; 
+    padding-bottom: 2%; 
     color: black; 
     font-family: 'Playfair Display', 'Avenir';
     letter-spacing: 1.5px;
     font-size: 45px;
+}
+
+h2 {
+    padding-left: 5%; 
+    padding-top: 1%;
+    color: black; 
+    font-family: 'Playfair Display', 'Avenir';
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    font-size: 30px;
+
+}
+
+h3 {
+    padding-left: 5%; 
+    padding-bottom: 2%; 
+    font-weight: 400;
 }
 
 label {
@@ -27,7 +44,7 @@ label {
 
 #submit-btn {
 margin-left: 45%; 
-padding: 1% 2% 1% 2%; 
+padding: 1%; 
 background-color: #3C3731;
 color: white; 
 font-weight: 500;
@@ -66,11 +83,10 @@ input {
 }
 
 #form-display {
-    background-image: linear-gradient(rgba(202, 170, 145, 1), rgba(202, 170, 145, .8));
-    /* background-color: rgba(202, 170, 145, .7); */
+    background-image: linear-gradient(rgba(147, 154, 129, 1), rgba(147, 154, 129, 0.9));
     filter:none; 
     width: 100%;
-    height: 300px; 
+    height: 350px; 
     position: absolute;
     top: 10%; 
     
@@ -78,5 +94,50 @@ input {
 
 .blank-area {
     width: 100%;
-    height: 50px; 
+    height: 25px; 
 }
+
+#bottom-images {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.bottom-box {
+    width: 300px;
+    height: 200px; 
+    margin: 3%; 
+}
+
+.bottom-box img {
+    width: 100%;
+    height: 200px; 
+}
+
+
+#succ-message {
+    color: white; 
+    background-color: #939A81; 
+    padding-left: 5%;
+    padding-top: 1%; 
+    padding-bottom: 1%;
+    margin-top: 4%; 
+    font-size: 16px; 
+}
+
+#succ-p {
+    background-color: #939A81;
+    color: black; 
+    padding-top: 0%; 
+    margin-top: 2%; 
+    font-weight: 500;
+    font-size: 18succpx;
+}
+
+span {
+    background-color: rgba(202, 170, 145, 1);
+    padding: 2px 5px 2px 5px; 
+    letter-spacing: 2px;
+}
+
+
