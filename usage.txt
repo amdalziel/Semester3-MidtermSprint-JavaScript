@@ -1,18 +1,24 @@
-myapp <command> <option>
+bkbrewery <command> <option>
 
 Usage:
 
-myapp --help        displays help
-myapp init        initialize the app
-myapp init --mk        create all the app folders
-myapp init --cat        create all the app files
-myapp init --all        create all the foleds and files
-myapp config        create or change the app configuration
-myapp config --show        show the contents of the config file
-myapp config --rest        reset back to default the config file
-myapp config --set        set a specific attribute of the config file
+bkbrewery --help                            displays all help
 
-myapp token        manage the user tokens
-myapp token --list        list all the tokens
-myapp token --count        provide a count of all the tokens
-myapp token --new         add a new token
+bkbrewery init --help                       displays help for the init command
+bkbrewery init --all                        creates the folder structure and the config and help files
+bkbrewery init --mk                         creates the folder structure
+bkbrewery init --cat                        creates the config file with default settings and the help files
+
+bkbrewery config --help                     displays help for the config command
+bkbrewery config --show                     displays a list of the current config settings 
+bkbrewery config --reset                    resets the config file with default settings 
+bkbrewery config --set <key> <value>        sets a specific config setting 
+
+bkbrewery token --help                      displays help for the token command 
+bkbrewery token --count                     displays a count of the tokens created 
+bkbrewery token --new <username>            generates a token for a given username, saves tokens to the json file
+bkbrewery token --upd p <username> <phone>  updates a json entry with a new phone number
+bkbrewery token --upd e <username> <email>  updates a json entry with a new email 
+bkbrewery token --search u <username>       fetches a token for a given username 
+bkbrewery token --search e <email>          fetches a token for a given email
+bkbrewery token --search p <phone>          fetches a token for a given phone number 
