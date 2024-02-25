@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs'); 
 
 const crc32 = require('crc/crc32');
+const { format } = require('date-fns');
 
 
 const express = require('express'); 
@@ -26,15 +27,12 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    console.log("Route: root"); 
-    // console.log(req.query); 
+    if(DEBUG) console.log("Route: root"); 
     res.render('home.ejs'); 
 })
 
 
-// Route for saving tokens from browser 
-
-
+// Route for saving tokens from browser (POST request)
 app.post('/api/storeToken', urlencodedParser, (req, res) => {
     const newTokenData = req.body; 
     if(DEBUG) console.log(newTokenData); 
@@ -51,13 +49,15 @@ app.post('/api/storeToken', urlencodedParser, (req, res) => {
   
     let now = new Date();
     let expires = addDays(now, 3);
+
+    let formatPhone = newTokenData.phone.replace(/-/g, "");
   
-    newToken.created = now; // change format
+    newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
     newToken.username = newTokenData.username;
     newToken.email = newTokenData.email; 
-    newToken.phone = newTokenData.phone; 
+    newToken.phone = formatPhone; 
     newToken.token = crc32(newTokenData.username).toString(16);
-    newToken.expires = expires; //change format 
+    newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
   
     if(DEBUG) console.log(newToken); 
 
@@ -88,8 +88,6 @@ app.post('/api/storeToken', urlencodedParser, (req, res) => {
     });
        
 });
-
-
 
 
 app.use((request, response) => {
