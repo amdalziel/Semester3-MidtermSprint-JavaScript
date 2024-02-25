@@ -23,8 +23,14 @@ window.addEventListener("DOMContentLoaded", function () {
     
         let userMess = document.getElementById("user-message"); 
 
+        userMess.innerHTML = "";
+
         if (userInput == "" || emailInput == "" || phoneInput == "") {
-            userMess.innerText = "Error: please fill in all three fields"; 
+
+            let errMess = document.createElement("p"); 
+            errMess.innerText = "Error: please fill in all three fields"; 
+            userMess.appendChild(errMess); 
+
             return false;  
         } else {
             return true; 
@@ -38,12 +44,18 @@ window.addEventListener("DOMContentLoaded", function () {
     
         let userMess = document.getElementById("user-message"); 
 
+        userMess.innerHTML = "";
+
         let emailRe = /^.+@[a-z]+\.[a-z]+$/i; 
         let verifyEmail = emailRe.test(emailInput); 
         console.log("validate email"); 
 
         if (!verifyEmail) {
-            userMess.innerText = "Error: please enter a valid email."; 
+
+            let errMess = document.createElement("p"); 
+            errMess.innerText = "Error: please enter a valid email."; 
+            userMess.appendChild(errMess); 
+
             return false;  
         } else {
             return true; 
@@ -57,12 +69,18 @@ window.addEventListener("DOMContentLoaded", function () {
     
         let userMess = document.getElementById("user-message"); 
 
+        userMess.innerHTML = "";
+
         let phoneRe = /^\d{3}-\d{3}-\d{4}$/i; 
         let verifyPhone = phoneRe.test(phoneInput); 
         console.log("validate phone"); 
 
         if (!verifyPhone) {
-            userMess.innerText = "Error: please enter a valid phone number."; 
+
+            let errMess = document.createElement("p"); 
+            errMess.innerText = "Error: please enter a valid phone number."; 
+            userMess.appendChild(errMess); 
+
             return false;  
         } else {
             return true; 
