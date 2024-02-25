@@ -1,0 +1,17 @@
+cli2 <command> <option>
+
+Usage:
+
+cli2 --help              displays help
+cli2 init                initialize the app
+cli2 init --mk           create all the app folders
+cli2 init --cat          create all the app files
+cli2 init --all          create all the folders and files
+cli2 config              create or change the app configuration
+cli2 config --show       show the contents of the config file
+cli2 config --reset      reset back to default the config file
+cli2 config --set        set a specific attribute of the config file
+cli2 token               manage the user tokens
+cli2 token --list        list all the tokens
+cli2 token --count       provide a count of all the tokens
+cli2 token --new         add a new token
