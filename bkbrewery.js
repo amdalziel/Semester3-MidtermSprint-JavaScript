@@ -2,7 +2,7 @@ global.DEBUG = true;
 
 const fs = require("fs");
 
-// const { initializeApp } = require('./init.js');
+const { initializeApp } = require('./init.js');
 const { configApp } = require('./config.js');
 const { tokenApp } = require('./token.js');
 

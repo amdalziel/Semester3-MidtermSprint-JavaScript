@@ -1,6 +1,7 @@
-const folders = ['models', 'views', 'routes', 'logs', 'json'];
+const folders = ['logs', 'json'];
+// public folder handled separately
 
-const configJson = {
+const configjson = {
     "name": "BestKindBreweryCLI",
     "version": "1.0.0",
     "description": "The Command Line Interface (CLI) for the Best Kind Brewery.",
@@ -21,5 +22,7 @@ const configJson = {
 
 
   module.exports = {
-    configJson,
+    configjson,
+    tokenjson,
+    folders,
   };

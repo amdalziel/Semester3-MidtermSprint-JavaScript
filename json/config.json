@@ -1,8 +1,0 @@
-{
-  "name": "BestKindBreweryCLI",
-  "version": "1.0.0",
-  "description": "The Command Line Interface (CLI) for the Best Kind Brewery.",
-  "main": "bkbrewery.js",
-  "superuser": "admin01",
-  "database": "bestkinddb"
-}
