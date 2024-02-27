@@ -1,0 +1,43 @@
+20240227	17:34:40	INFO	config.configApp()	config option was called by CLI	e787f671-914f-4bd9-8470-3fa8c93f26e1
+20240227	17:34:40	ERROR	config.configApp()	Error in configApp: Cannot read properties of undefined (reading '1')	d77f2738-57e3-4fef-bffb-cce1bb62e2cc
+20240227	17:36:48	INFO	config.configApp()	config option was called by CLI	fa2f77c8-8653-4cb2-9218-18bf88e13b06
+20240227	17:36:48	INFO	config.configApp()	config option was called by CLI	d3719ffc-8907-4f51-8f4d-6282b7bc06c5
+20240227	17:36:48	ERROR	config.configApp()	Error in configApp: Cannot read properties of undefined (reading '1')	3ad80924-7330-413c-95ae-ed1b37e56faa
+20240227	17:36:48	INFO	config.resetConfig()	config.json reset to original state.	1e5033cf-9839-4d9c-9aec-83991f8dc074
+20240227	18:04:59	INFO	configApp()	Configuration app started	e981e4f3-5f4b-454f-826c-d0157125e210
+20240227	18:04:59	INFO	configApp()	Configuration app started	4c95ed07-52ea-426e-b977-4b365deeb57d
+20240227	18:04:59	INFO	config.resetConfig()	Configuration reset to original state	51d29d17-f774-47ae-8abf-20fa3e7efc54
+20240227	18:04:59	INFO	config.resetConfig()	Configuration reset to original state	951b3a44-0d3f-4d0a-828e-449c4aad0037
+20240227	18:05:31	INFO	configApp()	Configuration app started	f82502ca-a03d-4102-8588-e0b1b999a09f
+20240227	18:05:31	ERROR	configApp()	Missing arguments for --set	dfbe77d9-d2fd-4328-92f4-1ed3b4e43609
+20240227	18:05:31	INFO	configApp()	Configuration app started	9b258dbb-1ce1-46cb-b4de-18d91b048230
+20240227	18:05:31	ERROR	configApp()	Missing arguments for --set	a3182b14-b5da-4f33-b29d-e0661a43410c
+20240227	18:09:23	INFO	configApp()	Configuration app started	a28108e8-11e1-45dc-9d76-3fd91220fa3c
+20240227	18:09:23	ERROR	configApp()	Missing arguments for --set	ffee1129-50d7-4107-8bb1-8bb208d9763c
+20240227	18:09:23	INFO	configApp()	Configuration app started	109d9aa8-924f-4789-9e16-76b22c4cb536
+20240227	18:09:23	ERROR	configApp()	Missing arguments for --set	160af189-de55-4973-8a12-595f36899ed8
+20240227	18:09:55	INFO	configApp()	Configuration app started	e8216191-27d6-4e17-a6e2-26b3bc8b1564
+20240227	18:09:55	INFO	configApp()	Configuration app started	2cab71d5-4301-4a25-9f66-f67a53f92920
+20240227	18:09:55	INFO	config.resetConfig()	config.json reset to original state	724d7eb6-533d-407c-a6d3-6db1a676d97a
+20240227	18:09:55	INFO	config.resetConfig()	config.json reset to original state	b5f32805-bd94-4af7-9d7c-17cb6d52875b
+20240227	18:10:45	INFO	configApp()	Configuration app started	bc43975a-0498-4964-8d60-842f6cd5c7b0
+20240227	18:10:45	INFO	configApp()	Configuration app started	e6fb0cb9-a526-4dde-b0d4-912abfca5884
+20240227	18:10:45	ERROR	config.setConfig()	Error: key is an invalid key.	22c8f506-87b3-4006-bb53-e9dc0fb21643
+20240227	18:10:45	ERROR	config.setConfig()	Error: key is an invalid key.	6fe481d8-9855-4d68-878d-fc23dac88aca
+20240227	18:11:44	INFO	configApp()	Configuration app started	62a534f9-db37-4993-b2c9-67ec61aaa2e3
+20240227	18:11:44	INFO	configApp()	Configuration app started	2235643a-9f2d-4508-998f-a7b1cdfb6053
+20240227	18:11:44	ERROR	config.setConfig()	Error: janna is an invalid key.	07ca00b3-aa9c-4d34-ba70-8eeb38d1d105
+20240227	18:11:44	ERROR	config.setConfig()	Error: janna is an invalid key.	985516e7-cb94-44ff-89bb-6ffcf7ac213c
+20240227	18:12:03	INFO	configApp()	Configuration app started	a1fb8c3a-bcca-4516-89f7-a39e3b028d19
+20240227	18:12:03	INFO	configApp()	Configuration app started	b4f196dd-9345-40ad-9759-7c46b5675434
+20240227	18:12:03	INFO	config.resetConfig()	config.json reset to original state	f25ec52c-b87e-4e9f-9107-aa8330397325
+20240227	18:12:03	INFO	config.resetConfig()	config.json reset to original state	4dc3bf27-54c0-453d-aafe-0e4428ec2800
+20240227	18:26:30	INFO	configApp()	Configuration app started	f798a8a0-ce32-4c3d-b7b7-7a198d9bce6f
+20240227	18:26:31	INFO	config.resetConfig()	config.json reset to original state	21e06748-b665-4a3e-9f8b-95eb404ab9f8
+20240227	18:27:02	INFO	configApp()	Configuration app started	a9d59f28-ce04-40d8-b98d-5fc1588cb997
+20240227	18:27:02	INFO	configApp()	Usage displayed	46d09686-226d-427e-bf0c-7c03759b8427
+20240227	18:27:13	INFO	configApp()	Configuration app started	b060f8e1-9342-4312-862e-e98623620c30
+20240227	18:29:19	INFO	createFiles()	Files created successfully	d52bb0c9-33d0-4211-9d80-6845339f08e2
+20240227	18:51:27	INFO	token.tokenApp()	token option was called by CLI	5e617844-3dfe-48a8-a97c-5fa95876d262
+20240227	18:51:27	INFO	token.tokenCount()	Number of tokens: 4	b5eadff6-6fc2-41ae-8618-38a0fb8af98f
+20240227	18:52:07	INFO	createFiles()	Files created successfully	232321da-2a40-46c3-bcdf-eabb892e45f2

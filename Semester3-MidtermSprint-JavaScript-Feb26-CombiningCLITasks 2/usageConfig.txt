@@ -1,0 +1,6 @@
+Config Usage: 
+
+bkbrewery config --help                     displays help for the config command
+bkbrewery config --show                     displays a list of the current config settings 
+bkbrewery config --reset                    resets the config file with default settings 
+bkbrewery config --set <key> <value>        sets a specific config setting 
