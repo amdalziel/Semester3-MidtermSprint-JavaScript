@@ -100,22 +100,25 @@ function initializeApp() {
   switch (myArgs[1]) {
       case '--all':
           if (DEBUG) console.log('--all createFolders() & createFiles()');
+          console.log("** Init Folders and Files Status **"); 
           createFolders();
           createFiles();
           break;
       case '--cat':
           if (DEBUG) console.log('--cat createFiles()');
+          console.log("** Init Files Status **"); 
           createFiles();
           break;
       case '--mk':
           if (DEBUG) console.log('--mk createFolders()');
+          console.log("** Init Folders Status **"); 
           createFolders();
           break;
       case '--help':
       case '--h':
         default:
           console.log('Reading usage file...');
-          fs.readFile(__dirname + "/usageinit.txt", (error, data) => {
+          fs.readFile(__dirname + "/usageInit.txt", (error, data) => {
               if (error) {
                   console.error('Error reading usage file:', error.message);
                   throw error;
