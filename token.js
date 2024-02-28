@@ -10,7 +10,9 @@ function tokenHelp() {
   if (DEBUG) console.log("token.tokenHelp()");
   fs.readFile(__dirname + "/usageToken.txt", (error, data) => {
     if (error) throw error;
+    console.log(); 
     console.log(data.toString());
+    console.log(); 
   });
 }
 
@@ -19,12 +21,14 @@ function tokenCount() {
   fs.readFile(__dirname + "/json/tokens.json", "utf-8", (error, data) => {
     if (error) throw error;
     let tokens = JSON.parse(data);
-    console.log("** Num of Tokens ** ");
+    console.log();
+    console.log("** Number of Tokens ** ");
     let numTokens = 0;
     tokens.forEach((obj) => {
       numTokens++;
     });
     console.log(numTokens);
+    console.log();
   });
 }
 
@@ -81,7 +85,10 @@ function newToken(username, email, phone) {
     fs.writeFile(__dirname + "/json/tokens.json", userTokens, (err) => {
       if (err) console.log(err);
       else {
+        console.log();
+        console.log("** Success **"); 
         console.log(`New token ${newToken.token} was created for ${username}.`);
+        console.log(); 
       }
     });
   });
@@ -131,9 +138,12 @@ function updateToken(usrName, changeValue, type) {
       fs.writeFile(filePath, userTokens, (err) => {
         if (err) console.error(err);
         else {
+            console.log(); 
+            console.log("** Success **"); 
           console.log(
             `Token for ${usrName} was updated with new ${type}: ${changeValue}`
           );
+          console.log(); 
         }
       });
     } else {
@@ -164,9 +174,12 @@ function searchToken(value, type) {
     });
 
     if (selectToken == null) {
-      console.log("Error: token username not found.");
+      console.log(`Error: token with this ${type} not found.`);
     } else {
-      console.log(`** User Token ** \n${selectToken}`);
+    console.log();
+    console.log("** Success **"); 
+      console.log(`${type.toUpperCase()} found with token: ${selectToken}`);
+      console.log();
     }
   });
 }
@@ -263,7 +276,9 @@ function tokenApp() {
     default:
       fs.readFile(__dirname + "/usage.txt", (error, data) => {
         if (error) throw error;
+        console.log(); 
         console.log(data.toString());
+        console.log(); 
       });
   }
 }

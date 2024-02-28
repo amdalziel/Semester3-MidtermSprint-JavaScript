@@ -1,4 +1,9 @@
-Config Usage: 
+
+------------------------------------------------------------------------------------------------------------
+
+bkbrewery <command> <option>
+
+Config Usage:
 
 bkbrewery config --help                     displays help for the config command
 bkbrewery config --show                     displays a list of the current config settings 

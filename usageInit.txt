@@ -1,6 +1,9 @@
+
+------------------------------------------------------------------------------------------------------------
+
 bkbrewery <command> <option>
 
-Usage:
+Init Usage:
 
 
 bkbrewery init --help                       displays help for the init command

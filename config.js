@@ -5,7 +5,7 @@ const { configjson } = require("./templates");
 
 const myArgs = process.argv.slice(2);
 
-const DEBUG = true; // Changed to a constant within the module scope.
+const DEBUG = false; // Changed to a constant within the module scope.
 
 // Async function to read the config file and return the parsed JSON
 async function readConfigFile() {
@@ -35,7 +35,9 @@ async function viewConfigHelp() {
       path.join(__dirname, "usageConfig.txt"),
       "utf8"
     );
+    console.log(); 
     console.log(data);
+    console.log(); 
   } catch (error) {
     console.error("Error viewing config help:", error);
   }
@@ -45,7 +47,10 @@ async function viewCurrConfig() {
   debugLog("config.viewCurrConfig()");
   try {
     const config = await readConfigFile();
+    console.log();
+    console.log("** Current Config **");
     console.log(config);
+    console.log();
   } catch (error) {
     console.error("Error viewing current config:", error);
   }
@@ -55,7 +60,10 @@ async function resetConfig() {
   debugLog("config.resetConfig()");
   try {
     await writeConfigFile(configjson);
-    debugLog("Config file reset to original state");
+    console.log(); 
+    console.log("** Success **"); 
+    console.log("Config file reset to original state.");
+    console.log(); 
   } catch (error) {
     console.error("Error resetting config:", error);
   }
@@ -68,7 +76,10 @@ async function setConfig(key, value) {
     if (config.hasOwnProperty(key)) {
       config[key] = value;
       await writeConfigFile(config);
-      debugLog("Config file successfully updated.");
+      console.log(); 
+      console.log("** Success **"); 
+      console.log(`Config file updated: ${key} = ${value}`);
+      console.log(); 
     } else {
       console.error(`Error: ${key} is an invalid key.`);
     }
@@ -108,7 +119,9 @@ async function configApp() {
           path.join(__dirname, "usage.txt"),
           "utf8"
         );
+        console.log(); 
         console.log(usageData);
+        console.log(); 
     }
   } catch (error) {
     console.error("Error in configApp:", error);

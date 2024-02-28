@@ -1,4 +1,4 @@
-global.DEBUG = true;
+global.DEBUG = false;
 
 const fs = require("fs");
 
@@ -31,6 +31,8 @@ switch (myArgs[0]) {
   default:
       fs.readFile(__dirname + "/usage.txt", (error, data) => {
           if(error) throw error;
+          console.log();
           console.log(data.toString());
+          console.log();
       });
 }

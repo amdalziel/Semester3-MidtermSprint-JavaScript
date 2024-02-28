@@ -3,43 +3,57 @@ const path = require('path');
 const fsPromises = require('fs').promises;
 const { folders, configjson, tokenjson } = require('./templates');
 
-const DEBUG = true;
+// const DEBUG = true;
+
+async function makeAll() {
+    if (DEBUG) console.log('init.makeAll()');
+
+    await createFolders();
+    await createFiles();
+}
+
 
 async function createPublicDirectory() {
     let publicFoldersCount = 0; 
     try {
-        if (!fs.existsSync(path.join(__dirname, 'public'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'public'));
+        if (!fs.existsSync(path.join(__dirname, 'publicc'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'publicc'));
             publicFoldersCount++; 
         }
-        if (!fs.existsSync(path.join(__dirname, 'public', 'css'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'public', 'css'));
+        if (!fs.existsSync(path.join(__dirname, 'publicc', 'css'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'publicc', 'css'));
             publicFoldersCount++; 
         }
-        if (!fs.existsSync(path.join(__dirname, 'public', 'images'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'public', 'images'));
+        if (!fs.existsSync(path.join(__dirname, 'publicc', 'images'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'publicc', 'images'));
             publicFoldersCount++; 
         }
-        if (!fs.existsSync(path.join(__dirname, 'public', 'views'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'public', 'views'));
+        if (!fs.existsSync(path.join(__dirname, 'publicc', 'views'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'publicc', 'views'));
             publicFoldersCount++; 
         }
         if(publicFoldersCount === 0) {
-            return 
+            return false; 
         } else {
-        console.log("Public folder (with subdirectories) was created."); 
+        return true; 
         }
     } catch (err) {
         console.error('Error creating folder:', err.message);
+        return false; 
     }
 }
 
 
 async function createFolders() {
     if (DEBUG) console.log('init.createFolders()');
-    createPublicDirectory(); 
- 
+
     let folderCreated = []; 
+
+    let publicStatus = await createPublicDirectory(); 
+    if(publicStatus === true) {
+        folderCreated.push('public'); 
+    }
+ 
     folders.forEach(element => {
         try {
             if (!fs.existsSync(path.join(__dirname, element))) {
@@ -51,9 +65,11 @@ async function createFolders() {
         }
     });
     if (folderCreated.length === 0) {
-        console.log('All folders already exist');
+        console.log('All folders already exist.');
+        console.log(); 
     } else {
         console.log(`Folder(s) created: ${folderCreated}.`);
+        console.log(); 
     }
 }
 
@@ -65,12 +81,15 @@ function createFiles() {
             fsPromises.writeFile('./json/config.json', configdata)
             .then(() => {
                 console.log('Data written to config file.');
+                console.log(); 
             })
             .catch((err) => {
                 console.error('Error writing to config file:', err.message);
+                console.log(); 
             });
     } else {
-        console.log('config file already exists.');
+        console.log('Config file already exists.');
+        console.log(); 
             
         }
         let tokendata = JSON.stringify(tokenjson, null, 2);
@@ -78,16 +97,20 @@ function createFiles() {
             fsPromises.writeFile('./json/tokens.json', tokendata)
             .then(() => {
                 console.log('Data written to tokens file.');
+                console.log(); 
             })
             .catch ((err) => {
                 console.error('Error writing to tokens file:', err.message);
+                console.log(); 
             }); 
         } else {
-            console.log('tokens file already exists.');
+            console.log('Tokens file already exists.');
+            console.log(); 
         }
 
     } catch (err) {
         console.error('Error creating files:', err.message);
+        console.log(); 
     }
 }
 
@@ -100,17 +123,20 @@ function initializeApp() {
   switch (myArgs[1]) {
       case '--all':
           if (DEBUG) console.log('--all createFolders() & createFiles()');
+          console.log(); 
           console.log("** Init Folders and Files Status **"); 
-          createFolders();
-          createFiles();
+          console.log(); 
+          makeAll(); 
           break;
       case '--cat':
           if (DEBUG) console.log('--cat createFiles()');
+          console.log(); 
           console.log("** Init Files Status **"); 
           createFiles();
           break;
       case '--mk':
           if (DEBUG) console.log('--mk createFolders()');
+          console.log(); 
           console.log("** Init Folders Status **"); 
           createFolders();
           break;
@@ -123,7 +149,9 @@ function initializeApp() {
                   console.error('Error reading usage file:', error.message);
                   throw error;
               }
-              console.log('Usage information:', data.toString());
+              console.log(); 
+              console.log(data.toString());
+              console.log(); 
           });
 
   }
