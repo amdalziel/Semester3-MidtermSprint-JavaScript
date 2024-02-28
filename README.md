@@ -3,14 +3,14 @@
 Best Kind Brewery Command Line Interface
 This CLI aids in the configuration and system administration needed for BK Brewery’s rewards program. It encompasses a variety of functionalities including initialization, configuration management, and token generation through the terminal interface. It also generates tokens for new users through a web form. All major events (successes and errors) are saved to a logs folder to provide feedback on the health and performance of the full-stack application. 
 
--- USAGE --
+** USAGE **
 Node bkbrewery <command> <option>
 
 
--- COMMANDS -- 
+** COMMANDS ** 
 •	--help: Display all commands for the BKBrewery CLI  
 
-init:
+init: 
 Initialize the CLI and set up necessary configurations.
 •	--help: Display all init commands 
 •	--all: Create the full web applications directory structure (folders) and config, tokens files with default settings 
