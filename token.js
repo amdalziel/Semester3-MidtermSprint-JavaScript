@@ -1,18 +1,20 @@
-const fs = require("fs");
-const path = require("path");
-const validator = require("validator");
-const crc32 = require("crc/crc32");
-const { format } = require("date-fns");
+const fs = require("fs"); // File system
+const path = require("path"); // Path
+const validator = require("validator"); // Validator
+const crc32 = require("crc/crc32"); // CRC32
+const { format } = require("date-fns"); // Date formatting
 
-const myArgs = process.argv.slice(2);
+const myArgs = process.argv.slice(2); // Command-line arguments
 
-const logEvents = require("./logEvents");
-const EventEmitter = require("events");
+const logEvents = require("./logEvents"); // Log events
+const EventEmitter = require("events"); // Event emitter
 
-const myEmitter = new EventEmitter();
+const myEmitter = new EventEmitter(); // Instance of event emitter
 
+// Event listener for logs
 myEmitter.on("logs", (event, level, msg) => logEvents(event, level, msg));
 
+// Function to display help information
 function tokenHelp() {
   if (DEBUG) console.log("token.tokenHelp()");
   fs.readFile(__dirname + "/usageToken.txt", (error, data) => {
@@ -24,6 +26,7 @@ function tokenHelp() {
   });
 }
 
+// Function to count the number of tokens
 function tokenCount() {
   if (DEBUG) console.log("token.tokenCount()");
   fs.readFile(__dirname + "/json/tokens.json", "utf-8", (error, data) => {
@@ -47,7 +50,7 @@ function tokenCount() {
 }
 
 
-
+// Function to validate email
 function isValidEmail(email) {
   return validator.isEmail(email, {
     allow_display_name: true, // Optional, allows display name in email
@@ -57,11 +60,13 @@ function isValidEmail(email) {
   });
 }
 
+// Function to validate phone number
 function isValidPhone(phone) {
   const phoneRegex = /^\d{10}$/;
   return phoneRegex.test(phone);
 }
 
+// Function to create a new token
 function newToken(username, email, phone) {
   if (DEBUG) console.log("token.newToken()");
 
@@ -113,6 +118,7 @@ function newToken(username, email, phone) {
   return newToken.token;
 }
 
+// Function to generate a new web token
 function newWebToken(user, email, phone) {
   let newToken = JSON.parse(`{
         "created": "2000-01-01 12:30:00",
@@ -140,12 +146,14 @@ function newWebToken(user, email, phone) {
   return newToken;
 }
 
+// Function to add days to a date
 function addDays(date, days) {
   var result = new Date(date);
   result.setDate(result.getDate() + days);
   return result;
 }
 
+// Function to update a token
 function updateToken(usrName, changeValue, type) {
   if (DEBUG) console.log("token.updateToken()");
 
@@ -208,6 +216,7 @@ module.exports = {
   updateToken,
 };
 
+// Function to search for a token
 function searchToken(value, type) {
   if (DEBUG) console.log("token.searchToken()");
 
@@ -236,6 +245,7 @@ function searchToken(value, type) {
   });
 }
 
+// Function to handle token-related commands from the CLI 
 function tokenApp() {
   if (DEBUG) console.log("tokenApp()");
   myEmitter.emit(
@@ -341,6 +351,7 @@ function tokenApp() {
   }
 }
 
+// Exporting functions and variables for use in other modules
 module.exports = {
   tokenApp,
   newWebToken,

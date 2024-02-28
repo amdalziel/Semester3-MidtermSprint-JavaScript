@@ -1,6 +1,8 @@
+// Array of folders to be created at startup
 const folders = ['logs', 'json'];
 // public folder handled separately
 
+// Configuration settings for the CLI
 const configjson = {
     "name": "BestKindBreweryCLI",
     "version": "1.0.0",
@@ -10,6 +12,7 @@ const configjson = {
     "database": "bestkinddb"
   }
 
+  // Initial token data stored in JSON format
   const tokenjson = [{
     created: '2000-01-01 12:30:00',
     username: 'username',
@@ -21,6 +24,7 @@ const configjson = {
   }];
 
 
+  // Export the configuration settings, token data, and folder array used in the CLI
   module.exports = {
     configjson,
     tokenjson,

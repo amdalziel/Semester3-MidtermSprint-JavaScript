@@ -1,3 +1,4 @@
+// Importing necessary modules for file system operations and path manipulation
 const fs = require("fs").promises; // Note: Use fs.promises for async/await support.
 const path = require("path"); // Using the path module for better path handling
 
@@ -41,6 +42,7 @@ function debugLog(message) {
   }
 }
 
+// Async function to view the config help file
 async function viewConfigHelp() {
   debugLog("config.viewConfigHelp()");
   try {
@@ -57,6 +59,7 @@ async function viewConfigHelp() {
   }
 }
 
+// Async function to view the current config
 async function viewCurrConfig() {
   debugLog("config.viewCurrConfig()");
   try {
@@ -71,6 +74,7 @@ async function viewCurrConfig() {
   }
 }
 
+// Async function to reset the config file to the original state
 async function resetConfig() {
   debugLog("config.resetConfig()");
   try {
@@ -86,6 +90,7 @@ async function resetConfig() {
   }
 }
 
+// Async function to set a config key-value pair
 async function setConfig(key, value) {
   debugLog("config.setConfig()");
   try {
@@ -108,6 +113,7 @@ async function setConfig(key, value) {
   }
 }
 
+// Main function to handle the configuration app
 async function configApp() {
   debugLog("configApp()");
   myEmitter.emit('logs', 'configApp()', 'INFO', 'Configuration app started');
