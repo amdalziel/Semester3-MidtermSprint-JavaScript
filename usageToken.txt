@@ -1,4 +1,9 @@
-Token Usage: 
+
+------------------------------------------------------------------------------------------------------------
+
+bkbrewery <command> <option>
+
+Token Usage:
 
 bkbrewery token --help                      displays help for the token command 
 bkbrewery token --count                     displays a count of the tokens created 
