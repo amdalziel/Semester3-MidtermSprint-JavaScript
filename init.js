@@ -3,6 +3,9 @@ const path = require('path');
 const fsPromises = require('fs').promises;
 const { folders, configjson, tokenjson } = require('./templates');
 
+// load the logEvents module
+const logEvents = require("./logEvents");
+
 // Create an instance of EventEmitter
 const EventEmitter = require('events');
 const eventEmitter = new EventEmitter();
