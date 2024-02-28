@@ -16,20 +16,20 @@ async function makeAll() {
 async function createPublicDirectory() {
     let publicFoldersCount = 0; 
     try {
-        if (!fs.existsSync(path.join(__dirname, 'publicc'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'publicc'));
+        if (!fs.existsSync(path.join(__dirname, 'public'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'public'));
             publicFoldersCount++; 
         }
-        if (!fs.existsSync(path.join(__dirname, 'publicc', 'css'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'publicc', 'css'));
+        if (!fs.existsSync(path.join(__dirname, 'public', 'css'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'public', 'css'));
             publicFoldersCount++; 
         }
-        if (!fs.existsSync(path.join(__dirname, 'publicc', 'images'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'publicc', 'images'));
+        if (!fs.existsSync(path.join(__dirname, 'public', 'images'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'public', 'images'));
             publicFoldersCount++; 
         }
-        if (!fs.existsSync(path.join(__dirname, 'publicc', 'views'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'publicc', 'views'));
+        if (!fs.existsSync(path.join(__dirname, 'public', 'views'))) {
+            await fsPromises.mkdir(path.join(__dirname, 'public', 'views'));
             publicFoldersCount++; 
         }
         if(publicFoldersCount === 0) {
