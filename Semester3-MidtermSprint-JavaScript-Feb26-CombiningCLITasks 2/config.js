@@ -1,15 +1,6 @@
-const fs = require("fs").promises; // Note: Use fs.promises for async/await support.
-const path = require("path"); // Using the path module for better path handling
-
-const { configjson } = require("./templates");
-
-const myArgs = process.argv.slice(2);
-
-const DEBUG = false; // Changed to a constant within the module scope.
-
-
+// Add logging to the CLI project by using eventLogging
 // load the logEvents module
-const logEvents = require("./logEvents");
+const logEvents = require('./logEvents');
 
 // define/extend an EventEmitter class
 const EventEmitter = require('events');
@@ -18,7 +9,14 @@ class MyEmitter extends EventEmitter {};
 const myEmitter = new MyEmitter();
 // add the listener for the logEvent
 myEmitter.on('logs', (event, level, msg) => logEvents(event, level, msg));
+const fs = require("fs").promises; // Note: Use fs.promises for async/await support.
+const path = require("path"); // Using the path module for better path handling
 
+const { configjson } = require("./templates");
+
+const myArgs = process.argv.slice(2);
+
+const DEBUG = true; // Changed to a constant within the module scope.
 
 // Async function to read the config file and return the parsed JSON
 async function readConfigFile() {
@@ -48,12 +46,9 @@ async function viewConfigHelp() {
       path.join(__dirname, "usageConfig.txt"),
       "utf8"
     );
-    console.log(); 
     console.log(data);
-    console.log(); 
   } catch (error) {
     console.error("Error viewing config help:", error);
-    myEmitter.emit('logs', 'config.viewConfigHelp()', 'ERROR', `Error viewing config help: ${error}`);
   }
 }
 
@@ -61,13 +56,9 @@ async function viewCurrConfig() {
   debugLog("config.viewCurrConfig()");
   try {
     const config = await readConfigFile();
-    console.log();
-    console.log("** Current Config **");
     console.log(config);
-    console.log();
   } catch (error) {
     console.error("Error viewing current config:", error);
-    myEmitter.emit('logs', 'config.viewCurrConfig()', 'ERROR', `Error viewing current config: ${error}`);
   }
 }
 
@@ -75,14 +66,9 @@ async function resetConfig() {
   debugLog("config.resetConfig()");
   try {
     await writeConfigFile(configjson);
-    console.log(); 
-    console.log("** Success **"); 
-    console.log("Config file reset to original state.");
-    console.log(); 
-    myEmitter.emit('logs', 'config.resetConfig()', 'INFO', 'config.json reset to original state');
+    debugLog("Config file reset to original state");
   } catch (error) {
     console.error("Error resetting config:", error);
-    myEmitter.emit('logs', 'config.resetConfig()', 'ERROR', `Error resetting config: ${error}`);
   }
 }
 
@@ -93,24 +79,17 @@ async function setConfig(key, value) {
     if (config.hasOwnProperty(key)) {
       config[key] = value;
       await writeConfigFile(config);
-      console.log(); 
-      console.log("** Success **"); 
-      console.log(`Config file updated: ${key} = ${value}`);
-      console.log(); 
-      // ADD EVENT EMITTER HERE 
+      debugLog("Config file successfully updated.");
     } else {
       console.error(`Error: ${key} is an invalid key.`);
-      myEmitter.emit('logs', 'config.setConfig()', 'ERROR', `Error: ${key} is an invalid key.`);
     }
   } catch (error) {
     console.error("Error setting config:", error);
-    myEmitter.emit('logs', 'config.setConfig()', 'ERROR', `Error setting config: ${error}`);
   }
 }
 
 async function configApp() {
   debugLog("configApp()");
-  myEmitter.emit('logs', 'configApp()', 'INFO', 'Configuration app started');
 
   try {
     switch (myArgs[1]) {
@@ -133,7 +112,6 @@ async function configApp() {
           await setConfig(myArgs[2], myArgs[3]);
         } else {
           console.error("Error: Missing arguments for --set");
-          myEmitter.emit('logs', 'configApp()', 'ERROR', 'Missing arguments for --set');
         }
         break;
       default:
@@ -141,14 +119,10 @@ async function configApp() {
           path.join(__dirname, "usage.txt"),
           "utf8"
         );
-        console.log(); 
         console.log(usageData);
-        console.log(); 
-        myEmitter.emit('logs', 'configApp()', 'INFO', 'Usage displayed');
     }
   } catch (error) {
     console.error("Error in configApp:", error);
-    myEmitter.emit('logs', 'configApp()', 'ERROR', `Error in configApp: ${error}`);
   }
 }
 

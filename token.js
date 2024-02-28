@@ -6,6 +6,15 @@ const { format } = require("date-fns");
 
 const myArgs = process.argv.slice(2);
 
+const logEvents = require('./logEvents');
+const EventEmitter = require('events');
+
+const myEmitter = new EventEmitter();
+
+myEmitter.on('logs', (event, level, msg) => logEvents(event, level, msg));
+
+
+
 function tokenHelp() {
   if (DEBUG) console.log("token.tokenHelp()");
   fs.readFile(__dirname + "/usageToken.txt", (error, data) => {
@@ -13,6 +22,7 @@ function tokenHelp() {
     console.log(); 
     console.log(data.toString());
     console.log(); 
+    myEmitter.emit('logs', 'token.tokenHelp()', 'INFO', 'tokenHelp function called');
   });
 }
 
@@ -29,6 +39,7 @@ function tokenCount() {
     });
     console.log(numTokens);
     console.log();
+    myEmitter.emit('logs', 'token.tokenCount()', 'INFO', `Number of tokens: ${numTokens}`);
   });
 }
 
@@ -80,7 +91,7 @@ function newToken(username, email, phone) {
     if (error) throw error;
     let tokens = JSON.parse(data);
     tokens.push(newToken);
-    let userTokens = JSON.stringify(tokens);
+    let userTokens = JSON.stringify(tokens, null, 2);
 
     fs.writeFile(__dirname + "/json/tokens.json", userTokens, (err) => {
       if (err) console.log(err);
@@ -89,6 +100,7 @@ function newToken(username, email, phone) {
         console.log("** Success **"); 
         console.log(`New token ${newToken.token} was created for ${username}.`);
         console.log(); 
+        myEmitter.emit('logs', 'token.newToken()', 'INFO', `New token ${newToken.token} was created for ${username}.`);
       }
     });
   });
@@ -144,6 +156,7 @@ function updateToken(usrName, changeValue, type) {
             `Token for ${usrName} was updated with new ${type}: ${changeValue}`
           );
           console.log(); 
+          myEmitter.emit('logs', 'token.updateToken()', 'INFO', `Updated token: ${JSON.stringify(selectedToken)}`);
         }
       });
     } else {
@@ -186,6 +199,7 @@ function searchToken(value, type) {
 
 function tokenApp() {
   if (DEBUG) console.log("tokenApp()");
+  myEmitter.emit('logs', 'token.tokenApp()', 'INFO', 'token option was called by CLI');
 
   switch (myArgs[1]) {
     case "--help":

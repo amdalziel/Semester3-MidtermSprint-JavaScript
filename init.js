@@ -3,7 +3,14 @@ const path = require('path');
 const fsPromises = require('fs').promises;
 const { folders, configjson, tokenjson } = require('./templates');
 
-// const DEBUG = true;
+// Create an instance of EventEmitter
+const EventEmitter = require('events');
+const eventEmitter = new EventEmitter();
+
+// Emit 'logs' event with logEvents data
+eventEmitter.on('logs', (event, level, msg) => logEvents(event, level, msg));
+
+const DEBUG = true;
 
 async function makeAll() {
     if (DEBUG) console.log('init.makeAll()');
@@ -71,6 +78,8 @@ async function createFolders() {
         console.log(`Folder(s) created: ${folderCreated}.`);
         console.log(); 
     }
+     // Emitting 'logs' event after folder creation
+     eventEmitter.emit('logs', 'createFolders()', 'INFO', 'Folders created successfully');
 }
 
 function createFiles() {
@@ -107,6 +116,8 @@ function createFiles() {
             console.log('Tokens file already exists.');
             console.log(); 
         }
+        // Emitting 'logs' event after file creation
+        eventEmitter.emit('logs', 'createFiles()', 'INFO', 'Files created successfully');
 
     } catch (err) {
         console.error('Error creating files:', err.message);
