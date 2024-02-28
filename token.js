@@ -6,23 +6,21 @@ const { format } = require("date-fns");
 
 const myArgs = process.argv.slice(2);
 
-const logEvents = require('./logEvents');
-const EventEmitter = require('events');
+const logEvents = require("./logEvents");
+const EventEmitter = require("events");
 
 const myEmitter = new EventEmitter();
 
-myEmitter.on('logs', (event, level, msg) => logEvents(event, level, msg));
-
-
+myEmitter.on("logs", (event, level, msg) => logEvents(event, level, msg));
 
 function tokenHelp() {
   if (DEBUG) console.log("token.tokenHelp()");
   fs.readFile(__dirname + "/usageToken.txt", (error, data) => {
     if (error) throw error;
-    console.log(); 
+    console.log();
     console.log(data.toString());
-    console.log(); 
-    myEmitter.emit('logs', 'tokenHelp()', 'INFO', 'tokenHelp function called');
+    console.log();
+    myEmitter.emit("logs", "tokenHelp()", "INFO", "tokenHelp function called");
   });
 }
 
@@ -39,7 +37,12 @@ function tokenCount() {
     });
     console.log(numTokens);
     console.log();
-    myEmitter.emit('logs', 'tokenCount()', 'INFO', `Number of tokens: ${numTokens}`);
+    myEmitter.emit(
+      "logs",
+      "tokenCount()",
+      "INFO",
+      `Number of tokens: ${numTokens}`
+    );
   });
 }
 
@@ -97,10 +100,15 @@ function newToken(username, email, phone) {
       if (err) console.log(err);
       else {
         console.log();
-        console.log("** Success **"); 
+        console.log("** Success **");
         console.log(`New token ${newToken.token} was created for ${username}.`);
-        console.log(); 
-        myEmitter.emit('logs', 'newToken()', 'INFO', `New token ${newToken.token} was created for ${username}.`);
+        console.log();
+        myEmitter.emit(
+          "logs",
+          "newToken()",
+          "INFO",
+          `New token ${newToken.token} was created for ${username}.`
+        );
       }
     });
   });
@@ -108,10 +116,8 @@ function newToken(username, email, phone) {
   return newToken.token;
 }
 
-
 function newWebToken(user, email, phone) {
-
-    let newToken = JSON.parse(`{
+  let newToken = JSON.parse(`{
         "created": "2000-01-01 12:30:00",
         "username": "username",
         "email": "user@email.com",
@@ -120,24 +126,22 @@ function newWebToken(user, email, phone) {
         "expires": "2000-01-04 12:30:00",
         "confirmed": "tbd"
     }`);
-  
-    let now = new Date();
-    let expires = addDays(now, 3);
 
-    let formatPhone = phone.replace(/-/g, "");
-  
-    newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
-    newToken.username = user;
-    newToken.email = email; 
-    newToken.phone = formatPhone; 
-    newToken.token = crc32(user).toString(16);
-    newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
-  
-    if(DEBUG) console.log(newToken); 
-    return newToken; 
+  let now = new Date();
+  let expires = addDays(now, 3);
 
+  let formatPhone = phone.replace(/-/g, "");
+
+  newToken.created = `${format(now, "yyyy-MM-dd HH:mm:ss")}`;
+  newToken.username = user;
+  newToken.email = email;
+  newToken.phone = formatPhone;
+  newToken.token = crc32(user).toString(16);
+  newToken.expires = `${format(expires, "yyyy-MM-dd HH:mm:ss")}`;
+
+  if (DEBUG) console.log(newToken);
+  return newToken;
 }
-
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -173,7 +177,9 @@ function updateToken(usrName, changeValue, type) {
         found = true;
       }
     });
-
+    let selectedToken = tokens.find((obj) => {
+      return obj.username === usrName;
+    });
     // If the user was found and updated, then proceed to save the file
     if (found) {
       let userTokens = JSON.stringify(tokens, null, 2); // null and 2 for pretty-printing
@@ -181,13 +187,18 @@ function updateToken(usrName, changeValue, type) {
       fs.writeFile(filePath, userTokens, (err) => {
         if (err) console.error(err);
         else {
-            console.log(); 
-            console.log("** Success **"); 
+          console.log();
+          console.log("** Success **");
           console.log(
             `Token for ${usrName} was updated with new ${type}: ${changeValue}`
           );
-          console.log(); 
-          myEmitter.emit('logs', 'updateToken()', 'INFO', `Updated token: ${JSON.stringify(selectedToken)}`);
+          console.log();
+          myEmitter.emit(
+            "logs",
+            "updateToken()",
+            "INFO",
+            `Updated token: ${JSON.stringify(selectedToken)}`
+          );
         }
       });
     } else {
@@ -220,8 +231,8 @@ function searchToken(value, type) {
     if (selectToken == null) {
       console.log(`Error: token with this ${type} not found.`);
     } else {
-    console.log();
-    console.log("** Success **"); 
+      console.log();
+      console.log("** Success **");
       console.log(`${type.toUpperCase()} found with token: ${selectToken}`);
       console.log();
     }
@@ -230,7 +241,12 @@ function searchToken(value, type) {
 
 function tokenApp() {
   if (DEBUG) console.log("tokenApp()");
-  myEmitter.emit('logs', 'tokenApp()', 'INFO', 'token option was called by CLI');
+  myEmitter.emit(
+    "logs",
+    "tokenApp()",
+    "INFO",
+    "token option was called by CLI"
+  );
 
   switch (myArgs[1]) {
     case "--help":
@@ -321,16 +337,16 @@ function tokenApp() {
     default:
       fs.readFile(__dirname + "/usage.txt", (error, data) => {
         if (error) throw error;
-        console.log(); 
+        console.log();
         console.log(data.toString());
-        console.log(); 
+        console.log();
       });
   }
 }
 
 module.exports = {
   tokenApp,
-  newWebToken, 
+  newWebToken,
   isValidEmail,
   isValidPhone,
 };
