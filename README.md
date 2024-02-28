@@ -5,7 +5,7 @@
 This CLI aids in the configuration and system administration needed for BK Brewery’s rewards program. It encompasses a variety of functionalities including initialization, configuration management, and token generation through the terminal interface. It also generates tokens for new users through a web form. All major events (successes and errors) are saved to a logs folder to provide feedback on the health and performance of the full-stack application.
 
 **USAGE**
-Node bkbrewery <command> <option>
+- Node bkbrewery 
 
 **COMMANDS**
 - `--help`: Display all commands for the BKBrewery CLI  
