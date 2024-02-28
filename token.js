@@ -22,7 +22,7 @@ function tokenHelp() {
     console.log(); 
     console.log(data.toString());
     console.log(); 
-    myEmitter.emit('logs', 'token.tokenHelp()', 'INFO', 'tokenHelp function called');
+    myEmitter.emit('logs', 'tokenHelp()', 'INFO', 'tokenHelp function called');
   });
 }
 
@@ -39,7 +39,7 @@ function tokenCount() {
     });
     console.log(numTokens);
     console.log();
-    myEmitter.emit('logs', 'token.tokenCount()', 'INFO', `Number of tokens: ${numTokens}`);
+    myEmitter.emit('logs', 'tokenCount()', 'INFO', `Number of tokens: ${numTokens}`);
   });
 }
 
@@ -100,13 +100,44 @@ function newToken(username, email, phone) {
         console.log("** Success **"); 
         console.log(`New token ${newToken.token} was created for ${username}.`);
         console.log(); 
-        myEmitter.emit('logs', 'token.newToken()', 'INFO', `New token ${newToken.token} was created for ${username}.`);
+        myEmitter.emit('logs', 'newToken()', 'INFO', `New token ${newToken.token} was created for ${username}.`);
       }
     });
   });
 
   return newToken.token;
 }
+
+
+function newWebToken(user, email, phone) {
+
+    let newToken = JSON.parse(`{
+        "created": "2000-01-01 12:30:00",
+        "username": "username",
+        "email": "user@email.com",
+        "phone": "2223334444",
+        "token": "token",
+        "expires": "2000-01-04 12:30:00",
+        "confirmed": "tbd"
+    }`);
+  
+    let now = new Date();
+    let expires = addDays(now, 3);
+
+    let formatPhone = phone.replace(/-/g, "");
+  
+    newToken.created = `${format(now, 'yyyy-MM-dd HH:mm:ss')}`;
+    newToken.username = user;
+    newToken.email = email; 
+    newToken.phone = formatPhone; 
+    newToken.token = crc32(user).toString(16);
+    newToken.expires = `${format(expires, 'yyyy-MM-dd HH:mm:ss')}`;
+  
+    if(DEBUG) console.log(newToken); 
+    return newToken; 
+
+}
+
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -156,7 +187,7 @@ function updateToken(usrName, changeValue, type) {
             `Token for ${usrName} was updated with new ${type}: ${changeValue}`
           );
           console.log(); 
-          myEmitter.emit('logs', 'token.updateToken()', 'INFO', `Updated token: ${JSON.stringify(selectedToken)}`);
+          myEmitter.emit('logs', 'updateToken()', 'INFO', `Updated token: ${JSON.stringify(selectedToken)}`);
         }
       });
     } else {
@@ -199,7 +230,7 @@ function searchToken(value, type) {
 
 function tokenApp() {
   if (DEBUG) console.log("tokenApp()");
-  myEmitter.emit('logs', 'token.tokenApp()', 'INFO', 'token option was called by CLI');
+  myEmitter.emit('logs', 'tokenApp()', 'INFO', 'token option was called by CLI');
 
   switch (myArgs[1]) {
     case "--help":
@@ -299,6 +330,7 @@ function tokenApp() {
 
 module.exports = {
   tokenApp,
+  newWebToken, 
   isValidEmail,
   isValidPhone,
 };

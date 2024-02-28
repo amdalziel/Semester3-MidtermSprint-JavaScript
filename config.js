@@ -53,7 +53,7 @@ async function viewConfigHelp() {
     console.log(); 
   } catch (error) {
     console.error("Error viewing config help:", error);
-    myEmitter.emit('logs', 'config.viewConfigHelp()', 'ERROR', `Error viewing config help: ${error}`);
+    myEmitter.emit('logs', 'viewConfigHelp()', 'ERROR', `Error viewing config help: ${error}`);
   }
 }
 
@@ -67,7 +67,7 @@ async function viewCurrConfig() {
     console.log();
   } catch (error) {
     console.error("Error viewing current config:", error);
-    myEmitter.emit('logs', 'config.viewCurrConfig()', 'ERROR', `Error viewing current config: ${error}`);
+    myEmitter.emit('logs', 'viewCurrConfig()', 'ERROR', `Error viewing current config: ${error}`);
   }
 }
 
@@ -79,10 +79,10 @@ async function resetConfig() {
     console.log("** Success **"); 
     console.log("Config file reset to original state.");
     console.log(); 
-    myEmitter.emit('logs', 'config.resetConfig()', 'INFO', 'config.json reset to original state');
+    myEmitter.emit('logs', 'resetConfig()', 'INFO', 'config.json reset to original state');
   } catch (error) {
     console.error("Error resetting config:", error);
-    myEmitter.emit('logs', 'config.resetConfig()', 'ERROR', `Error resetting config: ${error}`);
+    myEmitter.emit('logs', 'resetConfig()', 'ERROR', `Error resetting config: ${error}`);
   }
 }
 
@@ -104,7 +104,7 @@ async function setConfig(key, value) {
     }
   } catch (error) {
     console.error("Error setting config:", error);
-    myEmitter.emit('logs', 'config.setConfig()', 'ERROR', `Error setting config: ${error}`);
+    myEmitter.emit('logs', 'setConfig()', 'ERROR', `Error setting config: ${error}`);
   }
 }
 

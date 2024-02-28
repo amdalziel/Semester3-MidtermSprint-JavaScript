@@ -1,15 +1,21 @@
 const path = require('path'); 
 const fs = require('fs'); 
 
-const crc32 = require('crc/crc32');
-const { format } = require('date-fns');
-
 
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
 const app = express(); 
 
 const { newWebToken } = require('./token');
+
+
+const logEvents = require('./logEvents');
+const EventEmitter = require('events');
+
+const myEmitter = new EventEmitter();
+
+myEmitter.on('logs', (event, level, msg) => logEvents(event, level, msg));
+
 
 // Body Parser Middleware 
 var jsonParser = bodyParser.json(); 
@@ -44,18 +50,25 @@ app.post('/api/storeToken', urlencodedParser, (req, res) => {
 
     fs.readFile(__dirname + '/json/tokens.json', 'utf-8', (error, data) => {
         if(error) {
+            myEmitter.emit('logs', 'newWebToken()', 'INFO', `Error reading tokens.json: ${error}`);
             res.render('failMess.ejs'); 
-            throw error; }
+            return }
         let tokens = JSON.parse(data);
         tokens.push(newToken);
-        userTokens = JSON.stringify(tokens);
+        userTokens = JSON.stringify(tokens, null, 2);
     
         fs.writeFile(__dirname + '/json/tokens.json', userTokens, (err) => {
             if (err) {
+                myEmitter.emit('logs', 'newWebToken()', 'INFO', `Error writing a token from the browser to file: ${err}.`);
                 res.render('failMess.ejs'); 
-                console.log(err);}
+                console.log(err);
+            return }
             else { 
+                console.log(); 
+                console.log("** Success **"); 
                 console.log(`New token ${newToken.token} was created for ${newToken.username}.`);
+                console.log(); 
+                myEmitter.emit('logs', 'newWebToken()', 'INFO', `New token ${newToken.token} was created for ${newToken.username}.`);
                 res.render('successMess.ejs', {tok: newToken.token});
             }
         })

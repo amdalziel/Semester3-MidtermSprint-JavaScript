@@ -18,6 +18,8 @@ const logEvents = async (event, level, message) => {
         }
         // Include todays date in filename
         const fileName = `${format(new Date(), 'yyyyMMdd')}` + '_events.log';
+        if(DEBUG) console.log(fileName); 
+        if(DEBUG) console.log(logItem); 
         await fsPromises.appendFile(path.join(__dirname, 'logs', fileName), logItem + '\n');
     } catch (err) {
         console.log(err);
