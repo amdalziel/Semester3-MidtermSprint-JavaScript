@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Best Kind Brewery</title>
+</head>
+<body>
+
+<div id="main-display"> </div>
+
+    <div id="form-display">
+    <h1>Best Kind Brewery</h1>
+
+    <h3>Please fill in all three fields below to sign up for our rewards program.</h3>
+
+    <form id="brewery-form" method="POST" action='/api/storeToken'>
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username">
+
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="email">
+
+        <label for="phone">Phone Number (555-555-5555): </label>
+        <input type="text" id="phone" name="phone">
+
+        <div class="blank-area"></div>
+
+        <input type="submit" id="submit-btn"> 
+
+
+    </form>
+
+    <div id="user-message"></div>
+
+</div>
+
+
+
+
+    <script src="../form.js"></script>
+  
+    
+</body>
+</html>

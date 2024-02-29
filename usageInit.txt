@@ -1,0 +1,12 @@
+
+------------------------------------------------------------------------------------------------------------
+
+bkbrewery <command> <option>
+
+Init Usage:
+
+
+bkbrewery init --help                       displays help for the init command
+bkbrewery init --all                        creates the folder structure and the config and help files
+bkbrewery init --mk                         creates the folder structure
+bkbrewery init --cat                        creates the config file with default settings and the help files
